@@ -1,3 +1,4 @@
 export default {
-    getSwiper: '/swiper'
+  getSwiper: '/swiper', //获取轮播图
+  getContent: '/category/books' //按照分类获取图书
 }

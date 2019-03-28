@@ -1,0 +1,4 @@
+$rem:1rem;
+@function p2r ($n) {
+    @return 10/750*$n*$rem
+}

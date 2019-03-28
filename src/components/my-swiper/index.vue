@@ -2,13 +2,12 @@
   <div>
     <swiper :options="swiperOption" ref="mySwiper">
       <!-- slides -->
-      <swiper-slide>I'm Slide 1</swiper-slide>
-      <swiper-slide>I'm Slide 2</swiper-slide>
-      <swiper-slide>I'm Slide 3</swiper-slide>
-      <swiper-slide>I'm Slide 4</swiper-slide>
-      <swiper-slide>I'm Slide 5</swiper-slide>
-      <swiper-slide>I'm Slide 6</swiper-slide>
-      <swiper-slide>I'm Slide 7</swiper-slide>
+      <swiper-slide v-for="(item, index) in swiperData" :key="index">
+        <router-link to="#" class="swiper-img-wrap">
+          <img :src="item.img" :alt="item.img" class="swiper-img">
+          <div class="title">{{ item.title }}</div>
+        </router-link>
+      </swiper-slide>
       <!-- Optional controls -->
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
@@ -26,11 +25,48 @@ export default {
   },
   data() {
     return {
-      swiperOption: {}
+      swiperOption: {
+        pagination: {
+          el: ".swiper-pagination"
+        }
+      },
+      swiperData: []
     };
+  },
+  methods: {
+    getSwiper() {
+      this.$axios.get(this.$api.getSwiper).then(res => {
+        this.swiperData = res.data;
+        console.log(res);
+      });
+    }
+  },
+  created() {
+    this.getSwiper();
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
+@import "../../globalCss/px2-rem.scss";
+
+.swiper-img-wrap {
+  position: relative;
+  color: rgba(255, 255, 255, 0.9);
+  display: block;
+  .title {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 4px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    text-decoration: none;
+  }
+  .swiper-img {
+    height: p2r(400);
+  }
+}
 </style>
