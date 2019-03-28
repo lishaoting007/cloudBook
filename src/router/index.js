@@ -8,7 +8,16 @@ Vue.use(Router)
 export default new Router({
   routes: [{
     path: '/',
-    name: 'index',
-    component: () => import('@/views/index/index')
+    name: 'layout',
+    redirect:'/index',
+    component: () => import('@/views/layout'),
+    children:[{
+      path:"index",
+      name:'index',
+      meta:{
+        title:'首页'
+      },
+      component: () => import('@/views/index')
+    }]
   }]
 })

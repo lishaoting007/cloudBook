@@ -1,8 +1,13 @@
 <template>
   <div class="container">
     <my-swiper></my-swiper>
-    <div class="content">
-      <contentItem v-for="(item, index) in contentData " :options="item" :key="index"></contentItem>
+    <div>
+      <contentItem
+        class="content"
+        v-for="(item, index) in contentData "
+        :options="item"
+        :key="index"
+      ></contentItem>
     </div>
   </div>
 </template>
@@ -10,6 +15,8 @@
 <script>
 import MySwiper from "@/components/my-swiper/index";
 import contentItem from "./components/contentItem";
+import moment from "moment";
+
 export default {
   name: "index",
   components: {
@@ -23,8 +30,19 @@ export default {
   },
   methods: {
     getContent() {
-      this.$axios.get(this.$api.getContent).then(res => {
-        this.contentData = res.data;
+      this.$axios.get(this.$api.getContent, {
+        params: {
+          size:5
+        }
+      }).then(res => {
+        let resData = res.data.map(item => {
+          item.books.map(it => {
+            it.updateTime = moment(it.updateTime).format("YYYY年M月DD日");
+            return it;
+          });
+          return item;
+        });
+        this.contentData = resData;
       });
     }
   },
@@ -39,5 +57,6 @@ export default {
 
 .container {
   padding: p2r(14);
+  padding-bottom: 65px;
 }
 </style>
