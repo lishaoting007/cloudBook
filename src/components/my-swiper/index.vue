@@ -3,7 +3,7 @@
     <swiper :options="swiperOption" ref="mySwiper">
       <!-- slides -->
       <swiper-slide v-for="(item, index) in swiperData" :key="index">
-        <router-link to="#" class="swiper-img-wrap">
+        <router-link :to="{name:'details', params: {id: item.book._id}}" class="swiper-img-wrap">
           <img :src="item.img" :alt="item.img" class="swiper-img">
           <div class="title">{{ item.title }}</div>
         </router-link>

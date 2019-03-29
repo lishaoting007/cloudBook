@@ -5,7 +5,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [{
     path: '/',
     name: 'layout',
@@ -19,5 +19,23 @@ export default new Router({
       },
       component: () => import('@/views/index')
     }]
-  }]
+  },
+  {
+    path: '/details/:id',
+    name: 'details',
+    component: () => import('@/views/index/details'),
+    meta: {
+      title:'书籍详情'
+    }
+  }
+]
 })
+
+router.beforeEach((to, from, next) => {
+  let title = to.meta.title
+  document.title = title
+  next()
+})
+
+
+export default router

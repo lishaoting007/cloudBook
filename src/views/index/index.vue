@@ -3,6 +3,7 @@
     <Loadmore
       :top-method="loadTop"
       :bottom-all-loaded="allLoaded"
+      :top-loading-text="loadingtext"
       :bottom-method="loadBottom"
       ref="loadmore"
     >
@@ -40,7 +41,8 @@ export default {
         size: 2,
         pn: 1
       },
-      allLoaded: false
+      allLoaded: false,
+      loadingtext:"正在加载中..."
     };
   },
   methods: {
@@ -70,7 +72,7 @@ export default {
     loadTop() {
       this.queryData = {
         booksSize: 4,
-        size: 5,
+        size: 2,
         pn: 1
       };
       this.getContent().then(() => {
