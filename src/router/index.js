@@ -23,9 +23,17 @@ const router = new Router({
   {
     path: '/details/:id',
     name: 'details',
-    component: () => import('@/views/index/details'),
+    component: () => import('@/views/details'),
     meta: {
       title:'书籍详情'
+    }
+  },
+  {
+    path:'/titles/:id',
+    name:'titles',
+    component:()=> import('@/views/titles'),
+    meta:{
+      title:'目录'
     }
   }
 ]
