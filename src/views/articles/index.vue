@@ -8,11 +8,16 @@
       <i class="iconfont icon-zitifangda" @click="fontAdd"></i>
       <i class="iconfont icon-dayu" @click="articleJump('next')"></i>
     </div>
-    <div class="title-wrap" v-show="isShow" @click.stop="isShow=false">
-      <ul class="titles" >
-        <li class="title" @click.stop v-for="(item, index) in titles" :key="index">{{item.title}}</li>
-      </ul>
-    </div>
+    <div class="masking" v-show="isShow" @click.stop="isShow=false"></div>
+    <transition>
+      <div class="title-wrap" v-show="isShow" >
+        <ul class="titles" v-show="isShow" >
+          <li class="title" @click.stop v-for="(item,index) in titles" :key="index">
+            <router-link :to="{name:'article',params:{id: item._id}}">{{item.title}}</router-link>
+          </li>
+        </ul>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -31,7 +36,7 @@ export default {
       index: -1,
       titles: [],
       bookId: "",
-      isShow:false,
+      isShow: false
     };
   },
   methods: {
@@ -112,6 +117,7 @@ export default {
   },
   created() {
     this.getArticle().then(() => {
+      
       this.getTitle();
     });
   },
@@ -148,13 +154,16 @@ export default {
     bottom: 0;
     right: 0;
     top: 0;
-    background: rgba(0, 0, 0, .5);
+    background: #fff;
     color: #000;
     height: 100%;
-    width: 100%;
+    width: 80%;
     .titles {
       display: flex;
       flex-direction: column;
+      width: 100%;
+      padding: 30px 0 0 20px;
+
       .title {
         background: #fff;
         width: 80%;
@@ -162,10 +171,36 @@ export default {
         line-height: p2r(70);
         height: p2r(70);
         padding-left: p2r(30);
-        font-size: p2r(40);
+
+        a {
+          font-size: p2r(30);
+          display: block;
+        }
       }
     }
   }
+  .masking {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+    color: #000;
+    height: 100%;
+    width: 100%;
+  }
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.v-enter-active,
+.v-leave-active {
+  opacity: 1;
+  transition: all 0.3s ease;
 }
 </style>
 

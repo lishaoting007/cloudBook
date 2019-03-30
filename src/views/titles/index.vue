@@ -48,10 +48,11 @@ export default {
     border-bottom: 1px solid #939393;
     line-height: p2r(70);
     height: p2r(70);
-    padding-left: p2r(30);
+    padding:p2r(10)  p2r(40) 0 p2r(40);
 
     a {
-      font-size: p2r(40);
+      font-size: p2r(30);
+      display: block;
     }
   }
 }
