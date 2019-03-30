@@ -3,10 +3,15 @@
     <div class="content markdown" v-html="html" :style="{fontSize:fontSize + 'px'} "></div>
     <div class="btns">
       <i class="iconfont icon-xiaoyuhao" @click="articleJump('prev')"></i>
-      <i class="iconfont icon-mulu"></i>
+      <i class="iconfont icon-mulu" @click="isShow=true"></i>
       <i class="iconfont icon-zitisuoxiao" @click="fontReduce"></i>
       <i class="iconfont icon-zitifangda" @click="fontAdd"></i>
       <i class="iconfont icon-dayu" @click="articleJump('next')"></i>
+    </div>
+    <div class="title-wrap" v-show="isShow" @click.stop="isShow=false">
+      <ul class="titles" >
+        <li class="title" @click.stop v-for="(item, index) in titles" :key="index">{{item.title}}</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -25,7 +30,8 @@ export default {
       fontSize: 48,
       index: -1,
       titles: [],
-      bookId: ""
+      bookId: "",
+      isShow:false,
     };
   },
   methods: {
@@ -38,6 +44,7 @@ export default {
           this.bookId = res.data.article.bookId;
           const converter = new ShowDown.Converter();
           this.html = converter.makeHtml(res.data.article.content);
+
           resolve();
         });
       });
@@ -69,6 +76,10 @@ export default {
       });
     },
     articleJump(isPrev) {
+      Indicator.open({
+        text: "加载中...",
+        spinnerType: "fading-circle"
+      });
       const _this = this;
       function getArticleByIndex() {
         const item = _this.titles.find(value => value.index == _this.index);
@@ -103,6 +114,9 @@ export default {
     this.getArticle().then(() => {
       this.getTitle();
     });
+  },
+  updated() {
+    Indicator.close();
   }
 };
 </script>
@@ -126,6 +140,30 @@ export default {
       flex: 1;
       text-align: center;
       font-size: p2r(50);
+    }
+  }
+  .title-wrap {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .5);
+    color: #000;
+    height: 100%;
+    width: 100%;
+    .titles {
+      display: flex;
+      flex-direction: column;
+      .title {
+        background: #fff;
+        width: 80%;
+        border-bottom: 1px solid #939393;
+        line-height: p2r(70);
+        height: p2r(70);
+        padding-left: p2r(30);
+        font-size: p2r(40);
+      }
     }
   }
 }
