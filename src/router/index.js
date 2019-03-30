@@ -7,36 +7,44 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [{
-    path: '/',
-    name: 'layout',
-    redirect:'/index',
-    component: () => import('@/views/layout'),
-    children:[{
-      path:"index",
-      name:'index',
-      meta:{
-        title:'首页'
-      },
-      component: () => import('@/views/index')
-    }]
-  },
-  {
-    path: '/details/:id',
-    name: 'details',
-    component: () => import('@/views/details'),
-    meta: {
-      title:'书籍详情'
+      path: '/',
+      name: 'layout',
+      redirect: '/index',
+      component: () => import('@/views/layout'),
+      children: [{
+        path: "index",
+        name: 'index',
+        meta: {
+          title: '首页'
+        },
+        component: () => import('@/views/index')
+      }]
+    },
+    {
+      path: '/details/:id',
+      name: 'details',
+      component: () => import('@/views/details'),
+      meta: {
+        title: '书籍详情'
+      }
+    },
+    {
+      path: '/titles/:id',
+      name: 'titles',
+      component: () => import('@/views/titles'),
+      meta: {
+        title: '目录'
+      }
+    },
+    {
+      path: '/article/:id',
+      name: 'article',
+      component: () => import('@/views/articles'),
+      meta: {
+        title: '文章内容'
+      }
     }
-  },
-  {
-    path:'/titles/:id',
-    name:'titles',
-    component:()=> import('@/views/titles'),
-    meta:{
-      title:'目录'
-    }
-  }
-]
+  ]
 })
 
 router.beforeEach((to, from, next) => {
