@@ -10,8 +10,8 @@
     </div>
     <div class="masking" v-show="isShow" @click.stop="isShow=false"></div>
     <transition>
-      <div class="title-wrap" v-show="isShow" >
-        <ul class="titles" v-show="isShow" >
+      <div class="title-wrap" v-show="isShow">
+        <ul class="titles" v-show="isShow">
           <li class="title" @click.stop v-for="(item,index) in titles" :key="index">
             <router-link :to="{name:'article',params:{id: item._id}}">{{item.title}}</router-link>
           </li>
@@ -90,13 +90,24 @@ export default {
         const item = _this.titles.find(value => value.index == _this.index);
         const id = item._id;
         _this.getArticle(id);
+        _this.$router.push({
+          name: "article",
+          params: {
+            id
+          }
+        });
       }
 
       if (isPrev == "prev") {
         if (this.index == 0) {
-          Toast({
-            message: "已经是第一页了",
-            duration: 1500
+          return new Promise(revolve => {
+            Toast({
+              message: "已经是第一页了",
+              duration: 1500
+            });
+            revolve();
+          }).then(() => {
+            Indicator.close();
           });
         } else {
           this.index--;
@@ -117,7 +128,6 @@ export default {
   },
   created() {
     this.getArticle().then(() => {
-      
       this.getTitle();
     });
   },
@@ -154,6 +164,7 @@ export default {
     bottom: 0;
     right: 0;
     top: 0;
+    overflow-y: auto;
     background: #fff;
     color: #000;
     height: 100%;
