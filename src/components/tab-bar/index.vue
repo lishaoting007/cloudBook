@@ -9,7 +9,7 @@
         <i class="iconfont icon-course" slot="icon"></i>
         我的学习
       </TabItem>
-      <TabItem id="peron">
+      <TabItem id="login">
         <i class="iconfont icon-ren" slot="icon"></i>
         个人中心
       </TabItem>
@@ -30,7 +30,13 @@ export default {
     return {
       selected: "index"
     };
-  }
+  },
+  watch: {
+      selected: function (val, oldVal) {
+        console.log(val)
+        // click后打印出当前mt-tab-item的id
+      }
+    }
 };
 </script>
 

@@ -1,57 +1,65 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 
-
-
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
-  routes: [{
-      path: '/',
-      name: 'layout',
-      redirect: '/index',
-      component: () => import('@/views/layout'),
-      children: [{
-        path: "index",
-        name: 'index',
-        meta: {
-          title: '首页'
+  routes: [
+    {
+      path: "/",
+      name: "layout",
+      redirect: "/login",
+      component: () => import("@/views/layout"),
+      children: [
+        {
+          path: "index",
+          name: "index",
+          meta: {
+            title: "首页"
+          },
+          component: () => import("@/views/index")
         },
-        component: () => import('@/views/index')
-      }]
+        {
+          path: "login",
+          name: "login",
+          meta: {
+            title: "登录"
+          },
+          component: () => import("@/views/login")
+        }
+      ]
     },
     {
-      path: '/details/:id',
-      name: 'details',
-      component: () => import('@/views/details'),
+      path: "/details/:id",
+      name: "details",
+      component: () => import("@/views/details"),
       meta: {
-        title: '书籍详情'
+        title: "书籍详情"
       }
     },
     {
-      path: '/titles/:id',
-      name: 'titles',
-      component: () => import('@/views/titles'),
+      path: "/titles/:id",
+      name: "titles",
+      component: () => import("@/views/titles"),
       meta: {
-        title: '目录'
+        title: "目录"
       }
     },
     {
-      path: '/article/:id',
-      name: 'article',
-      component: () => import('@/views/articles'),
+      path: "/article/:id",
+      name: "article",
+      component: () => import("@/views/articles"),
       meta: {
-        title: '文章内容'
+        title: "文章内容"
       }
     }
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
-  let title = to.meta.title
-  document.title = title
-  next()
-})
+  let title = to.meta.title;
+  document.title = title;
+  next();
+});
 
-
-export default router
+export default router;
