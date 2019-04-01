@@ -4,14 +4,12 @@ import Router from "vue-router";
 Vue.use(Router);
 
 const router = new Router({
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "layout",
-      redirect: "/login",
+      redirect: "/index",
       component: () => import("@/views/layout"),
-      children: [
-        {
+      children: [{
           path: "index",
           name: "index",
           meta: {
@@ -20,12 +18,12 @@ const router = new Router({
           component: () => import("@/views/index")
         },
         {
-          path: "login",
-          name: "login",
+          path: "person",
+          name: "person",
           meta: {
-            title: "登录"
+            title: "个人中心"
           },
-          component: () => import("@/views/login")
+          component: () => import("@/views/person")
         }
       ]
     },
@@ -51,6 +49,22 @@ const router = new Router({
       component: () => import("@/views/articles"),
       meta: {
         title: "文章内容"
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      meta: {
+        title: '登录'
+      },
+      component: () => import('@/views/login')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import("@/views/register"),
+      meta: {
+        title: "注册"
       }
     }
   ]

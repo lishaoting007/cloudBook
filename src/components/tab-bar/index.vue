@@ -9,7 +9,7 @@
         <i class="iconfont icon-course" slot="icon"></i>
         我的学习
       </TabItem>
-      <TabItem id="login">
+      <TabItem id="person">
         <i class="iconfont icon-ren" slot="icon"></i>
         个人中心
       </TabItem>
@@ -32,11 +32,15 @@ export default {
     };
   },
   watch: {
-      selected: function (val, oldVal) {
-        console.log(val)
-        // click后打印出当前mt-tab-item的id
-      }
+    selected(val) {
+      this.$router.push({
+        name: val
+      });
     }
+  },
+  created() {
+    this.selected = this.$route.name;
+  }
 };
 </script>
 
