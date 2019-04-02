@@ -66,6 +66,14 @@ const router = new Router({
       meta: {
         title: "注册"
       }
+    },
+    {
+      path: '/countdown',
+      name: 'countdown',
+      component: () => import('@/views/countDown'),
+      meta: {
+        title: "倒计时"
+      }
     }
   ]
 });

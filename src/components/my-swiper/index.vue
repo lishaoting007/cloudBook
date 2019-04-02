@@ -1,29 +1,35 @@
 <template>
   <div>
-    <swiper :options="swiperOption" ref="mySwiper">
+    <swiper :options="swiperOption"
+            ref="mySwiper">
       <!-- slides -->
-      <swiper-slide v-for="(item, index) in swiperData" :key="index">
-        <router-link :to="{name:'details', params: {id: item.book._id}}" class="swiper-img-wrap">
-          <img :src="item.img" :alt="item.img" class="swiper-img">
+      <swiper-slide v-for="(item, index) in swiperData"
+                    :key="index">
+        <router-link :to="{name:'details', params: {id: item.book._id}}"
+                     class="swiper-img-wrap">
+          <img :src="item.img"
+               :alt="item.img"
+               class="swiper-img">
           <div class="title">{{ item.title }}</div>
         </router-link>
       </swiper-slide>
       <!-- Optional controls -->
-      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-pagination"
+           slot="pagination"></div>
     </swiper>
   </div>
 </template>
 
 <script>
-import "swiper/dist/css/swiper.css";
-import { swiper, swiperSlide } from "vue-awesome-swiper";
+import "swiper/dist/css/swiper.css"
+import { swiper, swiperSlide } from "vue-awesome-swiper"
 export default {
   name: "index",
   components: {
     swiper,
     swiperSlide
   },
-  data() {
+  data () {
     return {
       swiperOption: {
         pagination: {
@@ -34,14 +40,14 @@ export default {
     };
   },
   methods: {
-    getSwiper() {
+    getSwiper () {
       this.$axios.get(this.$api.getSwiper).then(res => {
         this.swiperData = res.data;
-      });
+      })
     }
   },
-  created() {
-    this.getSwiper();
+  created () {
+    this.getSwiper()
   }
 };
 </script>

@@ -1,0 +1,26 @@
+.dy-label {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    border-bottom: 1px solid #0099ff;
+    padding: 0 10px;
+  
+    input {
+      display: block;
+      width: 100%;
+      border: 0; // 去除未选中状态边框
+      outline: none; // 去除选中状态边框
+      background-color: rgba(0,0,0,0);
+      height: 36px;
+      line-height: 36px;
+      padding: 0 10px;
+      font-size: 14px;
+    }
+  
+    .iconfont {
+      width: 36px;
+      height: 36px;
+      font-size: 30px;
+      color: #888;
+    }
+  }
